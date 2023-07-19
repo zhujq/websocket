@@ -15,10 +15,10 @@ import (
 	"testing"
 	"time"
 
-	"nhooyr.io/websocket"
-	"nhooyr.io/websocket/internal/errd"
-	"nhooyr.io/websocket/internal/test/assert"
-	"nhooyr.io/websocket/internal/test/wstest"
+	"github.com/zhujq/websocket"
+	"github.com/zhujq/websocket/internal/errd"
+	"github.com/zhujq/websocket/internal/test/assert"
+	"github.com/zhujq/websocket/internal/test/wstest"
 )
 
 var excludedAutobahnCases = []string{
