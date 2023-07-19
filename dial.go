@@ -16,7 +16,7 @@ import (
 	"strings"
 	"sync"
 	"time"
-
+	"crypto/tls"
 	"nhooyr.io/websocket/internal/errd"
 )
 
@@ -169,7 +169,16 @@ func handshakeRequest(ctx context.Context, urls string, opts *DialOptions, copts
 	if copts != nil {
 		copts.setHeader(req.Header)
 	}
-
+	
+	tlsconf := &tls.Config{InsecureSkipVerify: true} //20230719 zhujq add,websocket dial to tlsnconfig
+	transport := &http.Transport{
+		TLSClientConfig: tlsconf,
+	}
+	wsclient := &http.Client{
+		Transport: transport,
+	}
+	opts.HTTPClient = wsclient
+	
 	resp, err := opts.HTTPClient.Do(req)
 	if err != nil {
 		return nil, fmt.Errorf("failed to send handshake request: %w", err)
